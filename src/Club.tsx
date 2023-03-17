@@ -1,37 +1,10 @@
-import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
 import { useParams } from "react-router-dom"
 import { Layout } from "./components/Layout"
 import { useStandings } from "./hooks/useStandings"
-import { standingsSchema } from "./schema"
 import { Link } from "react-router-dom"
-
-const useClub = ({
-  club,
-  year,
-}: {
-  year: number
-  club: string | undefined
-}) => {
-  const getClub = async () => {
-    const response = await fetch(
-      `https://api-football-standings.azharimm.dev/leagues/eng.1/standings?season=${year}&sort=asc`
-    )
-    const data = await response.json()
-    const standings = standingsSchema.parse(data?.data.standings)
-    const clubData = standings.find(
-      (clubData) => clubData.team.name.toLowerCase() === club?.toLowerCase()
-    )
-    return clubData
-  }
-
-  return useQuery({
-    queryKey: [club, year],
-    queryFn: getClub,
-    keepPreviousData: true,
-    staleTime: 1000 * 60 * 5,
-  })
-}
+import { useClub } from "./hooks/useClub"
+import { Spinner } from "./components/Spinner"
 
 export const Club = () => {
   const { year, club: clubParam } = useParams()
@@ -46,7 +19,7 @@ export const Club = () => {
     return (
       <Layout>
         <div className="h-screen flex justify-center items-center">
-          <progress className="progress progress-accent w-full max-w-sm"></progress>
+          <Spinner />
         </div>
       </Layout>
     )

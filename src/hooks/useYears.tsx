@@ -19,7 +19,7 @@ export const useYears = ({ club, filter }: useYearsProps = {}) => {
           const seasons = seasonSchema.parse(data?.data.seasons)
           const years = seasons.map((season) => season.year)
           return years
-        })
+        })  
       ),
     refetchOnMount: false,
     refetchOnWindowFocus: false,

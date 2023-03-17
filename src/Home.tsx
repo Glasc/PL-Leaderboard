@@ -3,13 +3,14 @@ import type { Standings } from "./schema"
 import { useStandings } from "./hooks/useStandings"
 import { useYears } from "./hooks/useYears"
 import { useParams, useNavigate } from "react-router-dom"
-import { Link } from "react-router-dom"
+import { GiSoccerBall } from "react-icons/gi"
+import { Spinner } from "./components/Spinner"
 
 const Home = () => {
   return (
     <Layout>
-      <header className="text-center text-5xl font-bold">Footballey PL</header>
-      <p className="text-center">(ballicon)</p>
+      <header className="text-center text-5xl font-bold">PL Table</header>
+      <GiSoccerBall className="mt-3 mx-auto" size={30} />
       <main className="mx-auto mt-6 w-full max-w-4xl flow-root">
         <Menu />
         <Standings />
@@ -22,9 +23,13 @@ export default Home
 
 const Menu = () => {
   const navigate = useNavigate()
+
   const { year: yearFromParam } = useParams()
+
   const year = Number(yearFromParam)
+
   const { isLoading, isError, data: years } = useYears()
+
   const handleYearChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newYearSelected = parseInt(e.target.value)
     navigate(`/${newYearSelected}`, { replace: true })
@@ -64,60 +69,12 @@ const Standings = () => {
 
   if (isFetching) {
     return (
-      <div className="w-full mt-6 flex flex-col space-y-6 animate-pulse">
-        <progress
-          className="progress w-full"
-          value="10"
-          max="100"
-        ></progress>
-        <progress
-          className="progress w-full"
-          value="20"
-          max="100"
-        ></progress>
-        <progress
-          className="progress w-full"
-          value="30"
-          max="100"
-        ></progress>
-        <progress
-          className="progress w-full"
-          value="40"
-          max="100"
-        ></progress>
-        <progress
-          className="progress w-full"
-          value="50"
-          max="100"
-        ></progress>
-        <progress
-          className="progress w-full"
-          value="60"
-          max="100"
-        ></progress>
-        <progress
-          className="progress w-full"
-          value="70"
-          max="100"
-        ></progress>
-        <progress
-          className="progress w-full"
-          value="80"
-          max="100"
-        ></progress>
-        <progress
-          className="progress w-full"
-          value="90"
-          max="100"
-        ></progress>
-        <progress
-          className="progress w-full"
-          value="100"
-          max="100"
-        ></progress>
+      <div className="w-full mt-20 mx-auto flex justify-center">
+        <Spinner />
       </div>
     )
   }
+  
   if (isError) {
     return <span>Oops</span>
   }
@@ -127,7 +84,7 @@ const Standings = () => {
   }
 
   return (
-    <table className="table-compact table relative mt-6 w-full text-sm sm:text-base">
+    <table className="table table-compact  relative mt-6 w-full text-sm sm:text-base">
       <thead className="sticky top-0 z-10">
         <tr>
           <th></th>
