@@ -13,13 +13,13 @@ const lastYear = new Date().getFullYear() - 1
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <Navigate to={`/${lastYear}`} />,
+    path: "/:year",
+    element: <Home />,
     errorElement: <WrongSeason />,
   },
   {
-    path: "/:year",
-    element: <Home />,
+    path: "/",
+    element: <Navigate to={`/${lastYear}`} />,
     errorElement: <WrongSeason />,
   },
   {
