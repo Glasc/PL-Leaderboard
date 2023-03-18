@@ -16,11 +16,13 @@ const router = createBrowserRouter([
     path: "/:year",
     element: <Home />,
     errorElement: <WrongSeason />,
+    index: true
   },
   {
     path: "/",
     element: <Navigate to={`/${lastYear}`} />,
     errorElement: <WrongSeason />,
+    index: true
   },
   {
     path: "/:year/:club",
