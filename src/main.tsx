@@ -4,10 +4,11 @@ import ReactDOM from "react-dom/client"
 import Home from "./Home"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
-import { createBrowserRouter, createHashRouter, Navigate, RouterProvider } from "react-router-dom"
+import { createHashRouter, Navigate, RouterProvider } from "react-router-dom"
 import "./index.css"
 import { WrongSeason } from "./components/WrongSeason"
 import { Club } from "./Club"
+import { WrongClub } from "./components/WrongClub"
 
 const lastYear = new Date().getFullYear() - 1
 
@@ -16,18 +17,18 @@ const router = createHashRouter([
     path: "/:year",
     element: <Home />,
     errorElement: <WrongSeason />,
-    index: true
+    index: true,
   },
   {
     path: "/",
     element: <Navigate to={`/${lastYear}`} />,
     errorElement: <WrongSeason />,
-    index: true
+    index: true,
   },
   {
     path: "/:year/:club",
     element: <Club />,
-    // TODO: Add errorElement
+    errorElement: <WrongClub />,
   },
 ])
 

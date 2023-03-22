@@ -6,5 +6,5 @@ type LayoutProps = {
 }
 
 export const Layout = ({ children }: LayoutProps) => {
-  return <div className="min-h-screen bg-base-300 py-7 relative">{children}</div>
+  return <div className="min-h-screen bg-base-300 py-7 px-4 relative">{children}</div>
 }
